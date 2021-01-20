@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hooks/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useKeyPress.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/BottomBtn/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FileList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FileSearch/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileSearch/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +39,9 @@
       <recent name="$PROJECT_DIR$/src/utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/BottomBtn" />
+      <recent name="$PROJECT_DIR$/src/components/index" />
+      <recent name="$PROJECT_DIR$/src/components/index.js" />
       <recent name="$PROJECT_DIR$/src/components/FileSearch" />
       <recent name="$PROJECT_DIR$/src/components/index.ts" />
     </key>
@@ -52,7 +55,7 @@
       <option name="presentableId" value="Default" />
       <updated>1611046471019</updated>
       <workItem from="1611046472316" duration="10822000" />
-      <workItem from="1611107795364" duration="5544000" />
+      <workItem from="1611107795364" duration="7919000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -89,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611112457826</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat:重构鼠标事件">
+      <created>1611113692266</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611113692266</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,6 +123,7 @@
     <MESSAGE value="feat:完成FileSearch组件" />
     <MESSAGE value="feat:添加类型检查和默认属性" />
     <MESSAGE value="feat:完成FileList的基本展示" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:完成FileList的基本展示" />
+    <MESSAGE value="feat:重构鼠标事件" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:重构鼠标事件" />
   </component>
 </project>
