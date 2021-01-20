@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSearch, faTimes} from '@fortawesome/fontawesome-free-solid';
+import './index.css'
+
 
 const FileSearch = ({ title, onFileSearch})=>{
     const [inputActive, setInputActive] = useState(false)
@@ -31,36 +35,36 @@ const FileSearch = ({ title, onFileSearch})=>{
         setValue('')
     }
     return (
-        <div className="alert alert-primary">
+        <div className="alert alert-primary d-flex justify-content-between align-items-center">
             { !inputActive && (
-                <div className="d-flex justify-content-between align-items-center">
+                <>
                     <span>{title}</span>
                     <button
                         type="button"
-                        className="btn btn-primary"
+                        className="icon-button"
                         onClick={()=>setInputActive(true)}
                     >
-                        搜索
+                        <FontAwesomeIcon title={'搜索'} icon ={faSearch} size={"lg"} />
                     </button>
-                </div>
+                </>
             )}
             {
                 inputActive && (
-                    <div className="row">
+                    <>
                         <input
-                            className="form-control col-8"
+                            className="form-control"
                             value={value}
                             ref={node}
                             onChange={(e)=>{setValue(e.target.value)}}
                         />
                         <button
                             type="button"
-                            className="btn btn-primary col-4"
+                            className="icon-button"
                             onClick={closeSearch}
                         >
-                            关闭
+                            <FontAwesomeIcon title={'关闭'} icon ={faTimes} size={"lg"} />
                         </button>
-                    </div>
+                    </>
                 )
             }
         </div>
