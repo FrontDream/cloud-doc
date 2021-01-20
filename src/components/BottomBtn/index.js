@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import './index.scss'
 
 const BottomBtn = ({text,colorClass, icon, onBtnClick})=>{
     return (
