@@ -44,10 +44,10 @@ const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
                                     <span className="col-2">
                                         <FontAwesomeIcon icon={faMarkdown} size={'lg'}/>
                                     </span>
-                                    <span className="col-8 c-link" onClick={()=>onFileClick(file.id)}>{file.title}</span>
+                                    <span className="col-6 c-link" onClick={()=>onFileClick(file.id)}>{file.title}</span>
                                     <button
                                         type="button"
-                                        className="icon-button col-1"
+                                        className="icon-button col-2"
                                         onClick={()=>{
                                             setEditStatus(file.id);
                                             setValue('')
@@ -61,7 +61,7 @@ const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
                                     </button>
                                     <button
                                         type="button"
-                                        className="icon-button col-1"
+                                        className="icon-button col-2"
                                         onClick={()=>{onFileDelete(file.id)}}
                                     >
                                         <FontAwesomeIcon

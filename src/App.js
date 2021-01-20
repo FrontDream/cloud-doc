@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { faPlus, faFileImport} from '@fortawesome/free-solid-svg-icons';
-import { FileSearch, FileList, BottomBtn } from './components'
+import { FileSearch, FileList, BottomBtn , TabList } from './components'
 import defaultFiles from './utils/defaultFiles'
 
 function App() {
@@ -40,6 +40,13 @@ function App() {
             </div>
         </div>
           <div className="col-9 right-panel">
+              <TabList
+                  files={defaultFiles}
+                  onTabClick={(id)=>console.log(id)}
+                  onCloseTab={id=>console.log('close:', id)}
+                  activeId={'1'}
+                  unsaveIds={["1","2"]}
+              />
           </div>
       </div>
     </div>

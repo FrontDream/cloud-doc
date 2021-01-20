@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/BottomBtn/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TabList/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TabList/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FileSearch/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileSearch/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FileList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +57,10 @@
       <option name="presentableId" value="Default" />
       <updated>1611046471019</updated>
       <workItem from="1611046472316" duration="10822000" />
-      <workItem from="1611107795364" duration="7919000" />
+      <workItem from="1611107795364" duration="10852000" />
+      <workItem from="1611128809887" duration="221000" />
+      <workItem from="1611129156347" duration="191000" />
+      <workItem from="1611129774781" duration="1344000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -99,7 +104,21 @@
       <option name="project" value="LOCAL" />
       <updated>1611113692266</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat:新建按钮组件">
+      <created>1611122836141</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1611122836141</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat:添加按钮组件到主页面中">
+      <created>1611122859391</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1611122859391</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,6 +143,8 @@
     <MESSAGE value="feat:添加类型检查和默认属性" />
     <MESSAGE value="feat:完成FileList的基本展示" />
     <MESSAGE value="feat:重构鼠标事件" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:重构鼠标事件" />
+    <MESSAGE value="feat:新建按钮组件" />
+    <MESSAGE value="feat:添加按钮组件到主页面中" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:添加按钮组件到主页面中" />
   </component>
 </project>
