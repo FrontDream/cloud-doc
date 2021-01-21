@@ -5,6 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FileList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FileSearch/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileSearch/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +57,7 @@
       <workItem from="1611107795364" duration="10852000" />
       <workItem from="1611128809887" duration="221000" />
       <workItem from="1611129156347" duration="191000" />
-      <workItem from="1611129774781" duration="6810000" />
+      <workItem from="1611129774781" duration="7989000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -141,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611144372234</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat:添加tab点击关闭、文件点击、文件修改">
+      <created>1611189188777</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1611189188777</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +181,7 @@
     <MESSAGE value="feat:完成右侧tab栏" />
     <MESSAGE value="feat:添加右侧的编辑器组件" />
     <MESSAGE value="feat:添加数据回传到app" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:添加数据回传到app" />
+    <MESSAGE value="feat:添加tab点击关闭、文件点击、文件修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:添加tab点击关闭、文件点击、文件修改" />
   </component>
 </project>

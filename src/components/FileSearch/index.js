@@ -30,6 +30,7 @@ const FileSearch = ({ title, onFileSearch})=>{
     const closeSearch = ()=>{
         setInputActive(false)
         setValue('')
+        onFileSearch('')
     }
     return (
         <div className="alert alert-primary d-flex justify-content-between align-items-center mb-0">

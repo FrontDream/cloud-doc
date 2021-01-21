@@ -50,7 +50,7 @@ const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
                                         className="icon-button col-2"
                                         onClick={()=>{
                                             setEditStatus(file.id);
-                                            setValue('')
+                                            setValue(file.title)
                                         }}
                                     >
                                         <FontAwesomeIcon
