@@ -6,17 +6,21 @@ import defaultFiles from './utils/defaultFiles'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
 import { v4 as uuidv4 } from 'uuid';
+import { flattenArr, objToArr } from './utils/helper'
 import './App.css';
 
 
 function App() {
-    const [files, setFiles] = useState(defaultFiles)
+    const [files, setFiles] = useState(flattenArr(defaultFiles))
     const [activeFileID, setActiveFileID] = useState('')
     const [openedFileIDs, setOpenedFileIDs] = useState([])
     const [unsavedFileIDs, setUnsavedFileIDs] = useState([])
     const [searchedFiles, setSearchedFiles] = useState([])
-    const openedFiles = files.filter(file=>openedFileIDs.includes(file.id))
-    const activeFile = files.find(file=>file.id === activeFileID)
+
+    const openedFiles = openedFileIDs.map(id=>files[id])
+    const activeFile = files[activeFileID]
+    const filesArr = objToArr(files)
+    const fileListArr = searchedFiles.length>0?searchedFiles: filesArr
 
     const fileClick = (id)=>{
         setActiveFileID(id)
@@ -37,51 +41,36 @@ function App() {
         setActiveFileID('')
     }
     const fileChange = (id, value)=>{
-        const newFiles = files.map(file=>{
-            if(file.id===id){
-                file.body = value
-            }
-            return file
-        })
-        setFiles(newFiles)
+        const newFile = {...files[id], body: value}
+        setFiles({...files,[id]:newFile})
         if(!unsavedFileIDs.includes(id)){
             setUnsavedFileIDs([...unsavedFileIDs,id])
         }
     }
     const deleteFile = (id)=>{
-        const newFiles = files.filter(file=>file.id!==id)
-        setFiles(newFiles)
+        delete files[id]
+        setFiles(files)
         tabClose(id)
     }
     const updateFileName = (id,title)=>{
-        const newFiles = files.map(file=>{
-            if(file.id===id){
-                file.title = title
-                file.isNew = false
-            }
-            return file
-        })
-        setFiles(newFiles)
+        const modifyFile = {...files[id], title,isNew:false}
+        setFiles({...files, [id]:modifyFile})
     }
     const fileSearch = (keyword)=>{
-        const newFiles = files.filter(file=>file.title.includes(keyword))
+        const newFiles = filesArr.filter(file=>file.title.includes(keyword))
         setSearchedFiles(newFiles)
     }
     const createNewFiles = ()=>{
         const newId = uuidv4()
-        const newFiles = [
-            ...files,
-            {
-                id: newId,
-                title: '',
-                body: '## 请输入MarkDown',
-                createdAt: new Date().getTime(),
-                isNew: true
-            }
-        ]
-        setFiles(newFiles)
+        const newFile = {
+            id: newId,
+            title: '',
+            body: '## 请输入MarkDown',
+            createdAt: new Date().getTime(),
+            isNew: true
+        }
+        setFiles({...files,[newId]:newFile})
     }
-    const fileListArr = searchedFiles.length>0?searchedFiles: files
   return (
     <div className="App container-fluid px-0">
       <div className="row no-gutters">
