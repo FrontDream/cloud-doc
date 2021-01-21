@@ -5,6 +5,7 @@ import { FileSearch, FileList, BottomBtn , TabList } from './components'
 import defaultFiles from './utils/defaultFiles'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 
@@ -56,6 +57,7 @@ function App() {
         const newFiles = files.map(file=>{
             if(file.id===id){
                 file.title = title
+                file.isNew = false
             }
             return file
         })
@@ -64,6 +66,20 @@ function App() {
     const fileSearch = (keyword)=>{
         const newFiles = files.filter(file=>file.title.includes(keyword))
         setSearchedFiles(newFiles)
+    }
+    const createNewFiles = ()=>{
+        const newId = uuidv4()
+        const newFiles = [
+            ...files,
+            {
+                id: newId,
+                title: '',
+                body: '## 请输入MarkDown',
+                createdAt: new Date().getTime(),
+                isNew: true
+            }
+        ]
+        setFiles(newFiles)
     }
     const fileListArr = searchedFiles.length>0?searchedFiles: files
   return (
@@ -86,6 +102,7 @@ function App() {
                         text={'新建'}
                         colorClass="btn-primary"
                         icon={faPlus}
+                        onBtnClick={createNewFiles}
                     />
                 </div>
                 <div className={'col'}>
