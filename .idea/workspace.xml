@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/utils/fileHelper.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FileList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +59,9 @@
       <workItem from="1611129156347" duration="191000" />
       <workItem from="1611129774781" duration="13738000" />
       <workItem from="1611210909561" duration="571000" />
-      <workItem from="1611212312399" duration="1459000" />
+      <workItem from="1611212312399" duration="3580000" />
+      <workItem from="1611217879481" duration="452000" />
+      <workItem from="1611219534661" duration="2610000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -171,7 +175,21 @@
       <option name="project" value="LOCAL" />
       <updated>1611194128398</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="feat:新增文件帮助类">
+      <created>1611213986921</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1611213986921</updated>
+    </task>
+    <task id="LOCAL-00018" summary="feat:在webPreference中添加允许使用remote">
+      <created>1611220040668</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1611220040668</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +224,8 @@
     <MESSAGE value="feat:添加文件的搜索和编辑" />
     <MESSAGE value="feat:安装uuid及增加新建markdown的逻辑" />
     <MESSAGE value="feat:扁平化重构数据，将数组改成id对应的健值对" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:扁平化重构数据，将数组改成id对应的健值对" />
+    <MESSAGE value="feat:新增文件帮助类" />
+    <MESSAGE value="feat:在webPreference中添加允许使用remote" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:在webPreference中添加允许使用remote" />
   </component>
 </project>

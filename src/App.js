@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import SimpleMDE from "react-simplemde-editor";
-import { faPlus, faFileImport} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faFileImport, faSave} from '@fortawesome/free-solid-svg-icons';
 import { FileSearch, FileList, BottomBtn , TabList } from './components'
 import defaultFiles from './utils/defaultFiles'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
 import { v4 as uuidv4 } from 'uuid';
 import { flattenArr, objToArr } from './utils/helper'
+import fileHelper from './utils/fileHelper'
 import './App.css';
 
+const { join } = window.require('path')
+// remote 可以用于取mainProcess中的相关方法
+const electron= window.require('electron')
+const remote = electron.remote
 
 function App() {
     const [files, setFiles] = useState(flattenArr(defaultFiles))
@@ -21,6 +26,7 @@ function App() {
     const activeFile = files[activeFileID]
     const filesArr = objToArr(files)
     const fileListArr = searchedFiles.length>0?searchedFiles: filesArr
+    const savedLocation = remote.app.getPath('documents')
 
     const fileClick = (id)=>{
         setActiveFileID(id)
@@ -52,9 +58,18 @@ function App() {
         setFiles(files)
         tabClose(id)
     }
-    const updateFileName = (id,title)=>{
+    const updateFileName = (id,title, isNew)=>{
         const modifyFile = {...files[id], title,isNew:false}
-        setFiles({...files, [id]:modifyFile})
+        if(isNew){
+            // 新建的时候存储到本地
+            fileHelper.writeFile(join(savedLocation,`${title}.md`),files[id].body).then(()=>{
+                setFiles({...files, [id]:modifyFile})
+            })
+        }else {
+            fileHelper.renameFile(join(savedLocation,`${files[id].title}.md`),join(savedLocation,`${title}.md`)).then(()=>{
+                setFiles({...files, [id]:modifyFile})
+            })
+        }
     }
     const fileSearch = (keyword)=>{
         const newFiles = filesArr.filter(file=>file.title.includes(keyword))
@@ -70,6 +85,11 @@ function App() {
             isNew: true
         }
         setFiles({...files,[newId]:newFile})
+    }
+    const saveCurrentFile = ()=>{
+        fileHelper.writeFile(join(savedLocation,`${activeFile.title}.md`),activeFile.body).then(()=>{
+            setUnsavedFileIDs(unsavedFileIDs.filter(fileId=>fileId!==activeFile.id))
+        })
     }
   return (
     <div className="App container-fluid px-0">
@@ -129,6 +149,12 @@ function App() {
                               options={{
                                   minHeight: '515px'
                               }}
+                          />
+                          <BottomBtn
+                              text={'保存'}
+                              colorClass="btn-success"
+                              icon={faSave}
+                              onBtnClick={saveCurrentFile}
                           />
                       </>
                   )
