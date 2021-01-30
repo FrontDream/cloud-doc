@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FileList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +60,10 @@
       <workItem from="1611210909561" duration="571000" />
       <workItem from="1611212312399" duration="3580000" />
       <workItem from="1611217879481" duration="452000" />
-      <workItem from="1611219534661" duration="2610000" />
+      <workItem from="1611219534661" duration="4248000" />
+      <workItem from="1612007903098" duration="3133000" />
+      <workItem from="1612012836098" duration="1131000" />
+      <workItem from="1612014475739" duration="569000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -189,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611220040668</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat:新建和更新文件内容，保存文件到本地">
+      <created>1611222448392</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1611222448392</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +235,7 @@
     <MESSAGE value="feat:扁平化重构数据，将数组改成id对应的健值对" />
     <MESSAGE value="feat:新增文件帮助类" />
     <MESSAGE value="feat:在webPreference中添加允许使用remote" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:在webPreference中添加允许使用remote" />
+    <MESSAGE value="feat:新建和更新文件内容，保存文件到本地" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:新建和更新文件内容，保存文件到本地" />
   </component>
 </project>

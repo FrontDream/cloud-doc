@@ -13,10 +13,30 @@ import './App.css';
 const { join } = window.require('path')
 // remote 可以用于取mainProcess中的相关方法
 const electron= window.require('electron')
+const Store = window.require('electron-store');
+
 const remote = electron.remote
 
+const fileStore = new Store({
+    name: 'cloudDoc'
+})
+
+const saveFilesToStore = (files)=>{
+    const fileObjectStore = objToArr(files).reduce((result,file)=>{
+        const { id, path, title, createdAt } = file
+        result[id] = {
+            id,
+            path,
+            title,
+            createdAt,
+        }
+        return result
+    },{})
+    fileStore.set('files', fileObjectStore)
+}
+
 function App() {
-    const [files, setFiles] = useState(flattenArr(defaultFiles))
+    const [files, setFiles] = useState(fileStore.get('files') || {})
     const [activeFileID, setActiveFileID] = useState('')
     const [openedFileIDs, setOpenedFileIDs] = useState([])
     const [unsavedFileIDs, setUnsavedFileIDs] = useState([])
@@ -54,20 +74,28 @@ function App() {
         }
     }
     const deleteFile = (id)=>{
-        delete files[id]
-        setFiles(files)
-        tabClose(id)
+        fileHelper.deleteFile(files[id].path).then(()=>{
+            delete files[id]
+            setFiles(files)
+            saveFilesToStore(files)
+            tabClose(id)
+        })
     }
     const updateFileName = (id,title, isNew)=>{
-        const modifyFile = {...files[id], title,isNew:false}
+        const newPath = join(savedLocation,`${title}.md`)
+        const modifyFile = {...files[id], title,isNew:false, path: newPath}
+        const newFiles = {...files, [id]:modifyFile}
         if(isNew){
             // 新建的时候存储到本地
-            fileHelper.writeFile(join(savedLocation,`${title}.md`),files[id].body).then(()=>{
-                setFiles({...files, [id]:modifyFile})
+            fileHelper.writeFile(newPath,files[id].body).then(()=>{
+                setFiles(newFiles)
+                saveFilesToStore(newFiles)
             })
         }else {
-            fileHelper.renameFile(join(savedLocation,`${files[id].title}.md`),join(savedLocation,`${title}.md`)).then(()=>{
-                setFiles({...files, [id]:modifyFile})
+            const oldPath = join(savedLocation,`${files[id].title}.md`)
+            fileHelper.renameFile(oldPath,newPath).then(()=>{
+                setFiles(newFiles)
+                saveFilesToStore(newFiles)
             })
         }
     }
