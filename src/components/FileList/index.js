@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit, faTimes, faTrash} from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
-import { useKeyPress } from '../../hooks'
+import { useKeyPress, useContextMenu } from '../../hooks'
 import './index.css'
 
 const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
@@ -12,6 +12,22 @@ const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
     const [editStatus, setEditStatus] =useState(false)
     const enterPressed = useKeyPress(13)
     const escPressed = useKeyPress(27)
+
+    const clickElement = useContextMenu([
+        {
+            label: '打开',
+            click:()=>{
+                console.log('click')
+                console.log(clickElement)
+            }
+        },
+        {
+            label: '关闭',
+            click:()=>{
+                console.log('closeing')
+            }
+        }
+    ], '.file-list')
 
     useEffect(()=>{
         const editItem = files.find(file=>file.id === editStatus)
