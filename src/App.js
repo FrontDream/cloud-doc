@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import { faPlus, faFileImport, faSave} from '@fortawesome/free-solid-svg-icons';
 import { FileSearch, FileList, BottomBtn , TabList } from './components'
-import defaultFiles from './utils/defaultFiles'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
 import { v4 as uuidv4 } from 'uuid';
-import { flattenArr, objToArr } from './utils/helper'
-import fileHelper from './utils/fileHelper'
+import { flattenArr, objToArr } from './utils/helper';
+import fileHelper from './utils/fileHelper';
+import { useIpcRenderer } from './hooks'
 import './App.css';
 
 const { join, basename, extname, dirname } = window.require('path')
 // remote 可以用于取mainProcess中的相关方法
-const electron= window.require('electron')
+const { remote, ipcRenderer }= window.require('electron')
 const Store = window.require('electron-store');
 
-const remote = electron.remote
+// const remote = electron.remote
 
 const fileStore = new Store({
     name: 'cloudDoc'
@@ -74,10 +74,12 @@ function App() {
         setActiveFileID('')
     }
     const fileChange = (id, value)=>{
-        const newFile = {...files[id], body: value}
-        setFiles({...files,[id]:newFile})
-        if(!unsavedFileIDs.includes(id)){
-            setUnsavedFileIDs([...unsavedFileIDs,id])
+        if(value!==files[id].body){
+            const newFile = {...files[id], body: value}
+            setFiles({...files,[id]:newFile})
+            if(!unsavedFileIDs.includes(id)){
+                setUnsavedFileIDs([...unsavedFileIDs,id])
+            }
         }
     }
     const deleteFile = (id)=>{
@@ -161,6 +163,11 @@ function App() {
             }
         })
     }
+    useIpcRenderer({
+        'create-new-file': createNewFiles,
+        'save-edit-file': saveCurrentFile,
+        'import-file': importFiles
+    })
   return (
     <div className="App container-fluid px-0">
       <div className="row no-gutters">
@@ -220,12 +227,6 @@ function App() {
                               options={{
                                   minHeight: '515px'
                               }}
-                          />
-                          <BottomBtn
-                              text={'保存'}
-                              colorClass="btn-success"
-                              icon={faSave}
-                              onBtnClick={saveCurrentFile}
                           />
                       </>
                   )
