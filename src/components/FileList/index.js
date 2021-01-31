@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit, faTimes, faTrash} from '@fortawesome/free-solid-svg-icons'
 import { faMarkdown } from '@fortawesome/free-brands-svg-icons'
 import PropTypes from 'prop-types'
-import { useKeyPress, useContextMenu } from '../../hooks'
+import { useKeyPress, useContextMenu } from '../../hooks';
+import { getParentNode } from '../../utils/helper'
 import './index.css'
 
 const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
@@ -17,17 +18,32 @@ const FileList = ({ files, onFileClick,onFileDelete,onSaveEdit})=>{
         {
             label: '打开',
             click:()=>{
-                console.log('click')
-                console.log(clickElement)
+                const parentNode = getParentNode(clickElement.current,'file-item')
+                if(parentNode){
+                    onFileClick(parentNode.dataset.id)
+                }
             }
         },
         {
-            label: '关闭',
+            label: '重命名',
             click:()=>{
-                console.log('closeing')
+                const parentNode = getParentNode(clickElement.current,'file-item')
+                if(parentNode){
+                    setEditStatus(parentNode.dataset.id);
+                    setValue(parentNode.dataset.title)
+                }
             }
-        }
-    ], '.file-list')
+        },
+        {
+            label: '删除',
+            click:()=>{
+                const parentNode = getParentNode(clickElement.current,'file-item')
+                if(parentNode){
+                    onFileDelete(parentNode.dataset.id)
+                }
+            }
+        },
+    ], '.file-list', [files])
 
     useEffect(()=>{
         const editItem = files.find(file=>file.id === editStatus)

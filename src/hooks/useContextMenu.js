@@ -4,7 +4,7 @@ const { remote } = window.require('electron')
 
 const { Menu, MenuItem } = remote
 
-const useContextMenu = (items, selector)=>{
+const useContextMenu = (items, selector, deps)=>{
     const clickElement = useRef(null)
     useEffect(()=>{
         const menu = new Menu();
@@ -21,7 +21,7 @@ const useContextMenu = (items, selector)=>{
         return () => {
             window.removeEventListener('contextmenu', handleContextMenu)
         }
-    },[])
+    },[deps])
     return clickElement
 }
 

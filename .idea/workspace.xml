@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/hooks/useContextMenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FileList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FileList/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useContextMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useContextMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/helper.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +64,7 @@
       <workItem from="1611219534661" duration="4248000" />
       <workItem from="1612007903098" duration="3133000" />
       <workItem from="1612012836098" duration="1131000" />
-      <workItem from="1612014475739" duration="7024000" />
+      <workItem from="1612014475739" duration="9172000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -220,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612081676663</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="feat: 添加菜单hook">
+      <created>1612086060800</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1612086060800</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,6 +268,7 @@
     <MESSAGE value="feat:添加本地持久化存储" />
     <MESSAGE value="feat: 点击某一个文件从本地存储中获取文件内容，并展示" />
     <MESSAGE value="feat: 添加导入文件并修改重命名的路径" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 添加导入文件并修改重命名的路径" />
+    <MESSAGE value="feat: 添加菜单hook" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 添加菜单hook" />
   </component>
 </project>
