@@ -49,7 +49,14 @@ function App() {
     const savedLocation = remote.app.getPath('documents')
 
     const fileClick = (id)=>{
+        const currentFile = files[id]
         setActiveFileID(id)
+        if(!currentFile.isLoaded){
+            fileHelper.readFile(currentFile.path).then(value=>{
+                const newFile = { ...currentFile, body: value, isLoaded: true}
+                setFiles({ ...files, [id]: newFile})
+            })
+        }
         if(!openedFileIDs.includes(id)){
             setOpenedFileIDs([...openedFileIDs,id])
         }
@@ -74,12 +81,17 @@ function App() {
         }
     }
     const deleteFile = (id)=>{
-        fileHelper.deleteFile(files[id].path).then(()=>{
-            delete files[id]
-            setFiles(files)
-            saveFilesToStore(files)
-            tabClose(id)
-        })
+        if(files[id].isNew){
+            const { [id]: value, ...afterDelete }= files
+            setFiles(afterDelete)
+        }else {
+            fileHelper.deleteFile(files[id].path).then(()=>{
+                const { [id]: value, ...afterDelete }= files
+                setFiles(afterDelete)
+                saveFilesToStore(afterDelete)
+                tabClose(id)
+            })
+        }
     }
     const updateFileName = (id,title, isNew)=>{
         const newPath = join(savedLocation,`${title}.md`)
