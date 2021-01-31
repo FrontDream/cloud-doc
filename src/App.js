@@ -16,6 +16,7 @@ const { remote, ipcRenderer }= window.require('electron')
 const Store = window.require('electron-store');
 
 // const remote = electron.remote
+const settingsStore = new Store({name: 'Settings'})
 
 const fileStore = new Store({
     name: 'cloudDoc'
@@ -46,7 +47,7 @@ function App() {
     const activeFile = files[activeFileID]
     const filesArr = objToArr(files)
     const fileListArr = searchedFiles.length>0?searchedFiles: filesArr
-    const savedLocation = remote.app.getPath('documents')
+    const savedLocation =settingsStore.get('savedFileLocation') || remote.app.getPath('documents')
 
     const fileClick = (id)=>{
         const currentFile = files[id]
