@@ -10,7 +10,7 @@ import { flattenArr, objToArr } from './utils/helper'
 import fileHelper from './utils/fileHelper'
 import './App.css';
 
-const { join } = window.require('path')
+const { join, basename, extname, dirname } = window.require('path')
 // remote 可以用于取mainProcess中的相关方法
 const electron= window.require('electron')
 const Store = window.require('electron-store');
@@ -94,7 +94,7 @@ function App() {
         }
     }
     const updateFileName = (id,title, isNew)=>{
-        const newPath = join(savedLocation,`${title}.md`)
+        const newPath =isNew? join(savedLocation,`${title}.md`): join(dirname(files[id].path), `${title}.md`)
         const modifyFile = {...files[id], title,isNew:false, path: newPath}
         const newFiles = {...files, [id]:modifyFile}
         if(isNew){
@@ -104,7 +104,7 @@ function App() {
                 saveFilesToStore(newFiles)
             })
         }else {
-            const oldPath = join(savedLocation,`${files[id].title}.md`)
+            const oldPath = files[id].path
             fileHelper.renameFile(oldPath,newPath).then(()=>{
                 setFiles(newFiles)
                 saveFilesToStore(newFiles)
@@ -127,8 +127,38 @@ function App() {
         setFiles({...files,[newId]:newFile})
     }
     const saveCurrentFile = ()=>{
-        fileHelper.writeFile(join(savedLocation,`${activeFile.title}.md`),activeFile.body).then(()=>{
+        fileHelper.writeFile(activeFile.path,activeFile.body).then(()=>{
             setUnsavedFileIDs(unsavedFileIDs.filter(fileId=>fileId!==activeFile.id))
+        })
+    }
+    const importFiles = () =>{
+        remote.dialog.showOpenDialog({
+            title: '请选择 MarkDown 文件',
+            properties: ['openFile','multiSelections'],
+            filters: [{ name: 'MarkDown', extensions: ['md'] }]
+        }).then(result=>{
+            if(Array.isArray(result.filePaths)){
+                const filterPath = result.filePaths.filter(path=>{
+                    const alreadyExist = Object.values(files).find(item=>item.path === path)
+                    return !alreadyExist
+                })
+                const importedFiles = filterPath.map(path=>{
+                    return {
+                        id: uuidv4(),
+                        title: basename(path, extname(path)),
+                        path
+                    }
+                })
+                const newFiles = {...files, ...flattenArr(importedFiles)}
+                setFiles(newFiles)
+                saveFilesToStore(newFiles)
+                if(newFiles.length>0){
+                    remote.dialog.showMessageBox({
+                        type: "info",
+                        message: `您成功的导入了${newFiles.length}个文件`
+                    })
+                }
+            }
         })
     }
   return (
@@ -159,6 +189,7 @@ function App() {
                         text={'导入'}
                         colorClass="btn-success"
                         icon={faFileImport}
+                        onBtnClick={importFiles}
                     />
                 </div>
             </div>
