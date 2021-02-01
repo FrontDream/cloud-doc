@@ -1,24 +1,23 @@
-const { app ,BrowserWindow, Menu, ipcMain } = require('electron')
+const { app ,BrowserWindow, Menu, ipcMain, dialog } = require('electron')
 const path = require('path')
 const isDev = require('electron-is-dev')
 const Store = require('electron-store')
 const settingsStore = new Store({name: 'Settings'})
 const menuTemplate = require('./src/menuTemplate')
+const QiniuManager = require('./src/utils/QiniuManager')
 
 const AppWindow = require('./src/AppWindow')
 
 let mainWindow, settingWindow;
 
+const createManager = ()=>{
+    const accessKey = settingsStore.get('accessKey')
+    const secretKey = settingsStore.get('secretKey')
+    const bucketName = settingsStore.get('bucketName')
+    return new QiniuManager(accessKey, secretKey, bucketName)
+}
+
 app.on('ready',()=>{
-    // require('devtron').install();
-    // mainWindow = new BrowserWindow({
-    //     width: 1024,
-    //     height: 680,
-    //     webPreferences: {
-    //         nodeIntegration: true,
-    //         enableRemoteModule: true
-    //     }
-    // })
     const mainWinConfig = {
         width: 1024,
         height: 680,
@@ -42,6 +41,15 @@ app.on('ready',()=>{
         settingWindow.on('closed', () => {
             settingWindow = null
         })
+    })
+    ipcMain.on('upload-file',(event,data)=>{
+        const qiniu = createManager();
+        qiniu.uploadFile(data.key, data.path).then(res=>{
+            console.log('res:', res)
+        }).catch(err=>{
+            dialog.showErrorBox('同步失败', '请检查七牛云参数是否正确')
+        })
+
     })
     ipcMain.on('config-is-saved',()=>{
         let qiniuMenu = process.platform==='darwin'? menu.items[3]: menu.items[2]

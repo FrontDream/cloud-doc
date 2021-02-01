@@ -18,6 +18,10 @@ const Store = window.require('electron-store');
 // const remote = electron.remote
 const settingsStore = new Store({name: 'Settings'})
 
+const qiniuConfigArr = ['accessKey', 'secretKey', 'bucketName', 'enableAutoSync']
+
+const getAuthConfig = () => qiniuConfigArr.every(item=>!!settingsStore.get(item))
+
 const fileStore = new Store({
     name: 'cloudDoc'
 })
@@ -130,8 +134,12 @@ function App() {
         setFiles({...files,[newId]:newFile})
     }
     const saveCurrentFile = ()=>{
-        fileHelper.writeFile(activeFile.path,activeFile.body).then(()=>{
-            setUnsavedFileIDs(unsavedFileIDs.filter(fileId=>fileId!==activeFile.id))
+        const {path, body, id, title} = activeFile
+        fileHelper.writeFile(path,body).then(()=>{
+            setUnsavedFileIDs(unsavedFileIDs.filter(fileId=>fileId!==id))
+            if(getAuthConfig()){
+                ipcRenderer.send('upload-file', { key: `${title}.md`, path })
+            }
         })
     }
     const importFiles = () =>{
