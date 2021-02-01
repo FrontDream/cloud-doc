@@ -2,8 +2,6 @@ const qiniu = require('qiniu')
 
 class QiniuManager{
     constructor(accessKey, secretKey, bucket) {
-        // this.accessKey = accessKey;
-        // this.secretKey = secretKey;
         this.mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
         this.bucket = bucket;
 
@@ -25,6 +23,13 @@ class QiniuManager{
 
         return new Promise((resolve,reject)=>{
             formUploader.put(uploadToken, key, loadFilePath, putExtra, this._handleCallBack(resolve,reject))
+        })
+    }
+    getBucketDomain(){
+        const reqUrl = `http://api.qiniu.com/v6/domain/list?tbl=${this.bucket}`
+        const digest = qiniu.util.generateAccessToken(this.mac, reqUrl)
+        return new Promise((resolve, reject)=>{
+            qiniu.rpc.postWithoutForm(reqUrl, digest, this._handleCallBack(resolve, reject))
         })
     }
     deleteFile(key){
