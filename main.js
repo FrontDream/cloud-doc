@@ -1,6 +1,8 @@
 const { app ,BrowserWindow, Menu, ipcMain } = require('electron')
 const path = require('path')
 const isDev = require('electron-is-dev')
+const Store = require('electron-store')
+const settingsStore = new Store({name: 'Settings'})
 const menuTemplate = require('./src/menuTemplate')
 
 const AppWindow = require('./src/AppWindow')
@@ -26,6 +28,8 @@ app.on('ready',()=>{
     mainWindow.on('close',()=>{
         mainWindow = null
     })
+    let menu = Menu.buildFromTemplate(menuTemplate)
+    Menu.setApplicationMenu(menu)
     ipcMain.on('open-settings-window',()=>{
         const settingConfig = {
             width: 500,
@@ -39,9 +43,23 @@ app.on('ready',()=>{
             settingWindow = null
         })
     })
+    ipcMain.on('config-is-saved',()=>{
+        let qiniuMenu = process.platform==='darwin'? menu.items[3]: menu.items[2]
+        const switchEnable = (toggle)=>{
+            [1,2,3].forEach(num=>{
+                qiniuMenu.submenu.items[num].enabled = toggle
+            })
+        }
+        const qiniuConfigArr = ['accessKey', 'secretKey', 'bucketName']
+        const isConfig = qiniuConfigArr.every(item=>!!settingsStore.get(item))
+        if(isConfig){
+            switchEnable(true)
+        }else {
+            switchEnable(false)
+        }
+    })
     // mainWindow.loadURL(urlLocation)
     mainWindow.webContents.openDevTools({ mode: 'bottom'})
 
-    let menu = Menu.buildFromTemplate(menuTemplate)
-    Menu.setApplicationMenu(menu)
+
 })
