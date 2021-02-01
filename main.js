@@ -45,7 +45,8 @@ app.on('ready',()=>{
     ipcMain.on('upload-file',(event,data)=>{
         const qiniu = createManager();
         qiniu.uploadFile(data.key, data.path).then(res=>{
-            console.log('res:', res)
+            console.log('同步成功:', res)
+            mainWindow.webContents.send('active-file-uploaded')
         }).catch(err=>{
             dialog.showErrorBox('同步失败', '请检查七牛云参数是否正确')
         })

@@ -20,3 +20,8 @@ export const getParentNode = (node, className)=>{
     }
     return false
 }
+
+export  const timestampToString = (timestamps)=>{
+    const date = new Date(timestamps)
+    return date.toLocaleDateString()+" "+ date.toLocaleTimeString()
+}

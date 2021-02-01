@@ -5,7 +5,7 @@ import { FileSearch, FileList, BottomBtn , TabList } from './components'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
 import { v4 as uuidv4 } from 'uuid';
-import { flattenArr, objToArr } from './utils/helper';
+import { flattenArr, objToArr, timestampToString } from './utils/helper';
 import fileHelper from './utils/fileHelper';
 import { useIpcRenderer } from './hooks'
 import './App.css';
@@ -28,12 +28,14 @@ const fileStore = new Store({
 
 const saveFilesToStore = (files)=>{
     const fileObjectStore = objToArr(files).reduce((result,file)=>{
-        const { id, path, title, createdAt } = file
+        const { id, path, title, createdAt, isSynced, updatedAt } = file
         result[id] = {
             id,
             path,
             title,
             createdAt,
+            isSynced,
+            updatedAt
         }
         return result
     },{})
@@ -172,10 +174,18 @@ function App() {
             }
         })
     }
+    const updateCurrentFile=()=>{
+        const { id } = activeFile
+        const modifyFile = {...files[id], isSynced: true, updatedAt: new Date().getTime()}
+        const updateFile = { ...files, [id]: modifyFile}
+        setFiles(updateFile)
+        saveFilesToStore(updateFile)
+    }
     useIpcRenderer({
         'create-new-file': createNewFiles,
         'save-edit-file': saveCurrentFile,
-        'import-file': importFiles
+        'import-file': importFiles,
+        'active-file-uploaded': updateCurrentFile
     })
   return (
     <div className="App container-fluid px-0">
@@ -237,6 +247,9 @@ function App() {
                                   minHeight: '515px'
                               }}
                           />
+                          { activeFile.isSynced &&
+                                <span className="sync-status">已同步，上次同步{timestampToString(activeFile.updatedAt)}</span>
+                          }
                       </>
                   )
               }
