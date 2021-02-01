@@ -17,6 +17,7 @@
     "classnames": "^2.2.6",
     "electron-store": "^6.0.1",
     "node-sass": "^4.14.1",
+    "qiniu": "^7.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fontawesome": "^1.7.1",
