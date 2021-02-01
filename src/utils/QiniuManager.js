@@ -28,8 +28,23 @@ class QiniuManager{
     getBucketDomain(){
         const reqUrl = `http://api.qiniu.com/v6/domain/list?tbl=${this.bucket}`
         const digest = qiniu.util.generateAccessToken(this.mac, reqUrl)
+        console.log('trigger')
         return new Promise((resolve, reject)=>{
             qiniu.rpc.postWithoutForm(reqUrl, digest, this._handleCallBack(resolve, reject))
+        })
+    }
+    generateDownLink(key){
+        // 避免重复发请求获取domain
+        const domainPromise = this.publicBucketDomain? Promise.resolve([this.publicBucketDomain]) : this.getBucketDomain()
+        return domainPromise.then((data)=>{
+            if(Array.isArray(data) && data.length>0){
+                const reg = /^https?/
+                // 如果已经有了http就不加了
+                this.publicBucketDomain = reg.test(data[0]) ? data[0]: `http://${data[0]}`
+                return this.bucketManager.publicDownloadUrl(this.publicBucketDomain, key);
+            }else {
+                throw Error('域名未找到，请查看域名是否过期')
+            }
         })
     }
     deleteFile(key){
