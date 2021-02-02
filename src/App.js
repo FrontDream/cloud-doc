@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import { faPlus, faFileImport, faSave} from '@fortawesome/free-solid-svg-icons';
-import { FileSearch, FileList, BottomBtn , TabList } from './components'
+import { FileSearch, FileList, BottomBtn , TabList, Loader } from './components'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
 import { v4 as uuidv4 } from 'uuid';
@@ -48,6 +48,7 @@ function App() {
     const [openedFileIDs, setOpenedFileIDs] = useState([])
     const [unsavedFileIDs, setUnsavedFileIDs] = useState([])
     const [searchedFiles, setSearchedFiles] = useState([])
+    const [ isLoading, setLoading ] = useState(false)
 
     const openedFiles = openedFileIDs.map(id=>files[id])
     const activeFile = files[activeFileID]
@@ -203,15 +204,33 @@ function App() {
         })
 
     }
+    const filesUploaded=()=>{
+        const newFiles = objToArr(files).reduce((result, file) => {
+            const currentTime = new Date().getTime()
+            result[file.id] = {
+                ...files[file.id],
+                isSynced: true,
+                updatedAt: currentTime,
+            }
+            return result
+        }, {})
+        setFiles(newFiles)
+        saveFilesToStore(newFiles)
+    }
     useIpcRenderer({
         'create-new-file': createNewFiles,
         'save-edit-file': saveCurrentFile,
         'import-file': importFiles,
         'active-file-uploaded': updateCurrentFile,
-        'file-downloaded': fileServerUpdate
+        'file-downloaded': fileServerUpdate,
+        'files-uploaded': filesUploaded,
+        'loading-status': (message, status) => { setLoading(status) }
     })
   return (
     <div className="App container-fluid px-0">
+        { isLoading &&
+            <Loader />
+        }
       <div className="row no-gutters">
         <div className="col-3 left-panel">
             <FileSearch

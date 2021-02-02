@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/Loader/Loader.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Loader/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/QiniuManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/QiniuManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +27,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Loader" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -36,6 +37,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Loader" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/hooks" />
@@ -68,7 +70,7 @@
       <workItem from="1611219534661" duration="4248000" />
       <workItem from="1612007903098" duration="3133000" />
       <workItem from="1612012836098" duration="1131000" />
-      <workItem from="1612014475739" duration="40909000" />
+      <workItem from="1612014475739" duration="44414000" />
     </task>
     <task id="LOCAL-00001" summary="feat:完成环境配置">
       <created>1611049652409</created>
@@ -308,7 +310,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612184716483</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="feat:完成同步文件到本地">
+      <created>1612238049735</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1612238049735</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +336,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat:完成右侧tab栏" />
     <MESSAGE value="feat:添加右侧的编辑器组件" />
     <MESSAGE value="feat:添加数据回传到app" />
     <MESSAGE value="feat:添加tab点击关闭、文件点击、文件修改" />
@@ -352,6 +360,7 @@
     <MESSAGE value="feat:添加菜单根据设置的信息同步" />
     <MESSAGE value="feat:保存时同步到远程" />
     <MESSAGE value="feat:添加同步的时间戳" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:添加同步的时间戳" />
+    <MESSAGE value="feat:完成同步文件到本地" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:完成同步文件到本地" />
   </component>
 </project>
