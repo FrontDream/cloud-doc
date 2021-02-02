@@ -59,6 +59,7 @@
     "cross-env": "^7.0.3",
     "devtron": "^1.4.0",
     "electron": "^11.2.0",
+    "electron-builder": "^22.9.1",
     "electron-is-dev": "^1.2.0",
     "nodemon": "^2.0.7",
     "wait-on": "^5.2.1"
