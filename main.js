@@ -27,7 +27,7 @@ app.on('ready',()=>{
         width: 1024,
         height: 680,
     }
-    const urlLocation = isDev?'http://localhost:3000': 'ddd'
+    const urlLocation = isDev?'http://localhost:3000': `file://${path.join(__dirname, './build/index.html')}`
     mainWindow = new AppWindow(mainWinConfig, urlLocation)
     mainWindow.on('close',()=>{
         mainWindow = null
