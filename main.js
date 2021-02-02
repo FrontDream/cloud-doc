@@ -8,6 +8,11 @@ const QiniuManager = require('./src/utils/QiniuManager')
 
 const AppWindow = require('./src/AppWindow')
 
+const fileStore = new Store({
+    name: 'cloudDoc'
+})
+
+
 let mainWindow, settingWindow;
 
 const createManager = ()=>{
@@ -51,6 +56,27 @@ app.on('ready',()=>{
             dialog.showErrorBox('同步失败', '请检查七牛云参数是否正确')
         })
 
+    })
+    ipcMain.on('down-file',(event, data)=>{
+        const { id, key, path } =data
+        const manager = createManager();
+        const files = fileStore.get('files')
+        manager.getStat(key).then(res=>{
+            const serverUpdate =Math.round(res.putTime / 10000);
+            const localUpdate = files[id].updatedAt
+            if(serverUpdate>localUpdate || !localUpdate){
+                manager.downloadFile(key,path).then(()=>{
+                    mainWindow.webContents.send('file-downloaded',{ status: 'downloaded-success', id })
+                })
+            }else{
+                mainWindow.webContents.send('file-downloaded',{ status: 'no-new-file', id })
+            }
+            // console.log('data=========>', data)
+        },(err)=>{
+            if (err.statusCode === 612) {
+                mainWindow.webContents.send('file-downloaded', {status: 'no-file', id})
+            }
+        })
     })
     ipcMain.on('config-is-saved',()=>{
         let qiniuMenu = process.platform==='darwin'? menu.items[3]: menu.items[2]

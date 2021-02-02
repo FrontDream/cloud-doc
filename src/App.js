@@ -58,11 +58,16 @@ function App() {
     const fileClick = (id)=>{
         const currentFile = files[id]
         setActiveFileID(id)
-        if(!currentFile.isLoaded){
-            fileHelper.readFile(currentFile.path).then(value=>{
-                const newFile = { ...currentFile, body: value, isLoaded: true}
-                setFiles({ ...files, [id]: newFile})
-            })
+        const { isLoaded, title, path } = currentFile
+        if(!isLoaded){
+            if(getAuthConfig()){
+                ipcRenderer.send('down-file', { key: `${title}.md`, id, path })
+            }else {
+                fileHelper.readFile(path).then(value=>{
+                    const newFile = { ...currentFile, body: value, isLoaded: true}
+                    setFiles({ ...files, [id]: newFile})
+                })
+            }
         }
         if(!openedFileIDs.includes(id)){
             setOpenedFileIDs([...openedFileIDs,id])
@@ -181,11 +186,29 @@ function App() {
         setFiles(updateFile)
         saveFilesToStore(updateFile)
     }
+    const fileServerUpdate = (event, message)=>{
+        // const { id, status } = data
+        const currentFile = files[message.id]
+        const { id ,path } = currentFile
+        fileHelper.readFile(path).then(value=>{
+            let newFile
+            if(message.status==='downloaded-success'){
+                newFile = { ...files[id], body: value, isLoaded: true, isSynced: true, updatedAt: new Date().getTime() }
+            }else{
+                newFile = { ...files[id], body: value, isLoaded: true }
+            }
+            const newFiles = {...files, [id]: newFile}
+            setFiles(newFiles)
+            saveFilesToStore(newFiles)
+        })
+
+    }
     useIpcRenderer({
         'create-new-file': createNewFiles,
         'save-edit-file': saveCurrentFile,
         'import-file': importFiles,
-        'active-file-uploaded': updateCurrentFile
+        'active-file-uploaded': updateCurrentFile,
+        'file-downloaded': fileServerUpdate
     })
   return (
     <div className="App container-fluid px-0">

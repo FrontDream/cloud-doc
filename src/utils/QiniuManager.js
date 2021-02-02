@@ -54,6 +54,12 @@ class QiniuManager{
             this.bucketManager.delete(this.bucket, key, this._handleCallBack(resolve,reject));
         })
     }
+    // 获取文件信息
+    getStat(key){
+        return new Promise((resolve, reject)=>{
+            this.bucketManager.stat(this.bucket, key, this._handleCallBack(resolve, reject));
+        })
+    }
     _handleCallBack(resolve,reject){
         return (respErr, respBody, respInfo)=> {
             if (respErr) {
@@ -71,8 +77,8 @@ class QiniuManager{
     }
     downloadFile(key, downPath){
         return this.generateDownLink(key).then(link=>{
-            const timeStamp = new Date().getTime();
-            const url = `${link}?timestamp=${timeStamp}`
+            const timeStamp = new Date().getTime()
+            const url = `${link}?r=${timeStamp}`
             return axios({
                 url,
                 method: 'GET',
