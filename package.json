@@ -59,6 +59,9 @@
       "./src/AppWindow.js",
       "./src/utils/QiniuManager.js"
     ],
+    "directories": {
+      "buildResources": "assets"
+    },
     "extends": null
   },
   "eslintConfig": {
