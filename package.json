@@ -24,7 +24,7 @@
     "prepack": "npm run build && npm run buildMain",
     "dist": "electron-builder",
     "predist": "npm run build && npm run buildMain",
-    "release": "cross-env GH_TOKEN=ad75d4f3200b5670b3768ec0ffacf55f5c50a1f8 electron-builder",
+    "release": "cross-env GH_TOKEN=dcff587d8bcdd7388c25b8a197879e03e62be1ea electron-builder",
     "prerelease": "npm run build && npm run buildMain"
   },
   "homepage": "./",

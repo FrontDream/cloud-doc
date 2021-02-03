@@ -4,8 +4,6 @@
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,14 +67,7 @@
       <workItem from="1611219534661" duration="4248000" />
       <workItem from="1612007903098" duration="3133000" />
       <workItem from="1612012836098" duration="1131000" />
-      <workItem from="1612014475739" duration="68009000" />
-    </task>
-    <task id="LOCAL-00001" summary="feat:完成环境配置">
-      <created>1611049652409</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1611049652409</updated>
+      <workItem from="1612014475739" duration="68437000" />
     </task>
     <task id="LOCAL-00002" summary="feat:完成FileSearch搜索基本功能">
       <created>1611058126461</created>
@@ -407,7 +398,21 @@
       <option name="project" value="LOCAL" />
       <updated>1612342419448</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="feat:添加版本自动更新代码">
+      <created>1612350934836</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1612350934836</updated>
+    </task>
+    <task id="LOCAL-00050" summary="feat:添加版本自动更新代码">
+      <created>1612350958738</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1612350958738</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +437,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 添加获取点击元素的父节点li，并调用相应的函数" />
     <MESSAGE value="feat: 注释多余的编辑和删除按钮" />
     <MESSAGE value="feat: 抽离快捷键到hooks中" />
     <MESSAGE value="feat: 抽离新建进程类" />
@@ -457,7 +461,8 @@
     <MESSAGE value="feat:优化electron的体积" />
     <MESSAGE value="feat:修改版本号" />
     <MESSAGE value="feat:添加release" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:添加release" />
+    <MESSAGE value="feat:添加版本自动更新代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat:添加版本自动更新代码" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
