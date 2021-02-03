@@ -119,8 +119,4 @@ app.on('ready',()=>{
             switchEnable(false)
         }
     })
-    // mainWindow.loadURL(urlLocation)
-    mainWindow.webContents.openDevTools({ mode: 'bottom'})
-
-
 })
