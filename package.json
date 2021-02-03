@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "main": "main.js",
+  "author": {
+    "name": "qiandingwei",
+    "email": "1370336125@qq.com"
+  },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
@@ -16,6 +20,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "classnames": "^2.2.6",
+    "electron-is-dev": "^1.2.0",
     "electron-store": "^6.0.1",
     "node-sass": "^4.14.1",
     "qiniu": "^7.3.2",
@@ -34,7 +39,27 @@
     "eject": "react-scripts eject",
     "ele": "electron .",
     "onlyEle": "nodemon --watch main.js --watch src/menuTemplate.js --exec \"electron .\"",
-    "dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
+    "dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "pack": "electron-builder --dir",
+    "prepack": "npm run build",
+    "dist": "electron-builder"
+  },
+  "homepage": "./",
+  "build": {
+    "appId": "cloudDoc",
+    "productName": "七牛云文档",
+    "copyright": "Copyright © 2020 ${author}",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "settings/**/*",
+      "package.json",
+      "main.js",
+      "./src/menuTemplate.js",
+      "./src/AppWindow.js",
+      "./src/utils/QiniuManager.js"
+    ],
+    "extends": null
   },
   "eslintConfig": {
     "extends": [
@@ -59,8 +84,7 @@
     "cross-env": "^7.0.3",
     "devtron": "^1.4.0",
     "electron": "^11.2.0",
-    "electron-builder": "^22.9.1",
-    "electron-is-dev": "^1.2.0",
+    "electron-builder": "22.7.0",
     "nodemon": "^2.0.7",
     "wait-on": "^5.2.1"
   }
