@@ -144,4 +144,5 @@ app.on('ready',()=>{
 ## 压缩优化体积
 
 - 在安装包中有一个app.asar是体积过大的主要罪魁祸首，解压后，发现其实就是`package.json`中build下files中的文件内容。
-- 优化的思路：在打安装包之前，已经通过`npm run build`将react相关的代码，也就是视图层的代码，进行了打包到`build`文件夹下，因此其实只需要将main.js中用到的包放在`dependencies`中就行了，剩余的包，移动到`devDependencies`中。因为electron-builder不会把devDependencies中的包打包进应用程序
+- 优化视图层(react)。思路：在打安装包之前，已经通过`npm run build`将react相关的代码，也就是视图层的代码，进行了打包到`build`文件夹下，因此其实只需要将main.js中用到的包放在`dependencies`中就行了，剩余的包，移动到`devDependencies`中。因为electron-builder不会把devDependencies中的包打包进应用程序
+- 优化electron层。思路：通过新建webpack.config.js将main.js进行打包，并配置，将main.js打包进入build文件夹
