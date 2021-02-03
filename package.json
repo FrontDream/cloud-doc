@@ -24,7 +24,7 @@
     "prepack": "npm run build && npm run buildMain",
     "dist": "electron-builder",
     "predist": "npm run build && npm run buildMain",
-    "release": "cross-env GH_TOKEN=b3edced2c8a9c7ea158c673d27e52446952ff82c electron-builder",
+    "release": "cross-env GH_TOKEN=ad75d4f3200b5670b3768ec0ffacf55f5c50a1f8 electron-builder",
     "prerelease": "npm run build && npm run buildMain"
   },
   "homepage": "./",
@@ -45,7 +45,9 @@
       "main": "./build/main.js"
     },
     "extends": null,
-    "publish": ["github"],
+    "publish": [
+      "github"
+    ],
     "mac": {
       "category": "public.app-category.productivity",
       "artifactName": "${productName}-${version}-${arch}.${ext}"
@@ -115,14 +117,18 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
     "devtron": "^1.4.0",
     "electron": "^11.2.0",
     "electron-builder": "22.7.0",
+    "electron-is-dev": "^1.2.0",
+    "electron-updater": "^4.3.5",
     "node-sass": "^4.14.1",
     "nodemon": "^2.0.7",
+    "qiniu": "^7.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-fontawesome": "^1.7.1",
@@ -131,9 +137,6 @@
     "uuid": "^8.3.2",
     "wait-on": "^5.2.1",
     "web-vitals": "^0.2.4",
-    "webpack-cli": "^4.5.0",
-    "qiniu": "^7.3.2",
-    "electron-is-dev": "^1.2.0",
-    "axios": "^0.21.1"
+    "webpack-cli": "^4.5.0"
   }
 }

@@ -1,4 +1,5 @@
 const { app ,BrowserWindow, Menu, ipcMain, dialog } = require('electron')
+const { autoUpdater} = require('electron-updater')
 const path = require('path')
 const isDev = require('electron-is-dev')
 const Store = require('electron-store')
@@ -23,6 +24,30 @@ const createManager = ()=>{
 }
 
 app.on('ready',()=>{
+    autoUpdater.autoDownload = false
+    autoUpdater.checkForUpdatesAndNotify()
+    autoUpdater.on('error',(error)=>{
+        dialog.showErrorBox('Error',error===null?"un-known":error)
+    })
+    autoUpdater.on('update-available',()=>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: '应用有新的版本',
+            message: '发现新应用，是否现在更新?',
+            buttons: ['是','否'],
+        },(buttonIndex)=>{
+            if(buttonIndex===0){
+                autoUpdater.downloadUpdate()
+            }
+        })
+    })
+    autoUpdater.on('update-not-available',()=>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: '没有新的版本',
+            message: '当前已经是最新版本',
+        })
+    })
     const mainWinConfig = {
         width: 1024,
         height: 680,

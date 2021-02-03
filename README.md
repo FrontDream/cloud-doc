@@ -160,3 +160,35 @@ app.on('ready',()=>{
     "prerelease": "npm run build && npm run buildMain"
 ```
 - `npm run release`即可。
+
+## 版本自动更新
+
+- 安装`npm install electron-updater --save-dev`并在`main.js`中引入：
+```javascript
+const { autoUpdater} = require('electron-updater')
+
+autoUpdater.autoDownload = false
+    autoUpdater.checkForUpdatesAndNotify()
+    autoUpdater.on('error',(error)=>{
+        dialog.showErrorBox('Error',error===null?"un-known":error)
+    })
+    autoUpdater.on('update-available',()=>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: '应用有新的版本',
+            message: '发现新应用，是否现在更新?',
+            buttons: ['是','否'],
+        },(buttonIndex)=>{
+            if(buttonIndex===0){
+                autoUpdater.downloadUpdate()
+            }
+        })
+    })
+    autoUpdater.on('update-not-available',()=>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: '没有新的版本',
+            message: '当前已经是最新版本',
+        })
+    })
+```
