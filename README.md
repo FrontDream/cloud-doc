@@ -59,3 +59,31 @@ app.on('ready',()=>{
     "dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
 ```
+## 打包过程
+
+- 安装`electron-builder`: npm install electron-builder --save-dev
+- 项目根目录运行`npm run build`
+- 修改非开发环境下electron运行的本地地址：`const urlLocation = isDev?'http://localhost:3000': `file://${path.join(__dirname, './build/index.html')}` `
+- 在`package.json`中添加基本配置，package.json第一层添加如下代码：
+```json
+"author": {
+    "name": "qiandingwei",
+    "email": "1370336125@qq.com"
+},
+"build": {
+    "appId": "cloudDoc",
+    "productName": "七牛云文档",
+    "copyright": "Copyright © 2020 ${author}"
+  },
+```
+- 在`script`中添加：
+```javascript
+"pack": "electron-builder --dir",
+"prepack": "npm run build",
+"dist": "electron-builder"
+```
+- 运行`npm run pack`
+- [报错](https://blog.csdn.net/weixin_42826294/article/details/113590638)
+- [报错](https://blog.csdn.net/weixin_42826294/article/details/113592301)
+- [报错](https://blog.csdn.net/weixin_42826294/article/details/113595030)
+- [报错](https://blog.csdn.net/weixin_42826294/article/details/113595862)
