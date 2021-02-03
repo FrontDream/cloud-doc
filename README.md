@@ -146,3 +146,17 @@ app.on('ready',()=>{
 - 在安装包中有一个app.asar是体积过大的主要罪魁祸首，解压后，发现其实就是`package.json`中build下files中的文件内容。
 - 优化视图层(react)。思路：在打安装包之前，已经通过`npm run build`将react相关的代码，也就是视图层的代码，进行了打包到`build`文件夹下，因此其实只需要将main.js中用到的包放在`dependencies`中就行了，剩余的包，移动到`devDependencies`中。因为electron-builder不会把devDependencies中的包打包进应用程序
 - 优化electron层。思路：通过新建webpack.config.js将main.js进行打包，并配置，将main.js打包进入build文件夹
+
+## 如何release
+
+- 在`package.json`中配置`release`的平台为`github`，即在`build`中配置如何代码
+```json
+    "publish": ["github"]
+```
+- 在`GitHub`中生成该项目所需要的`access_key`，并替换如下代码`you_access_key`的对应位置
+- 在`package.json`中配置`release`命令并设置环境变量，如下：
+```javascript
+"release": "cross-env GH_TOKEN=you_access_key electron-builder",
+    "prerelease": "npm run build && npm run buildMain"
+```
+- `npm run release`即可。
