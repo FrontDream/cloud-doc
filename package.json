@@ -1,6 +1,6 @@
 {
   "name": "cloud-doc",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "main": "main.js",
   "author": {
@@ -43,6 +43,7 @@
       "main": "./build/main.js"
     },
     "extends": null,
+    "publish": ["github"],
     "mac": {
       "category": "public.app-category.productivity",
       "artifactName": "${productName}-${version}-${arch}.${ext}"
