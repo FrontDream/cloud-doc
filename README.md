@@ -87,3 +87,61 @@ app.on('ready',()=>{
 - [报错](https://blog.csdn.net/weixin_42826294/article/details/113592301)
 - [报错](https://blog.csdn.net/weixin_42826294/article/details/113595030)
 - [报错](https://blog.csdn.net/weixin_42826294/article/details/113595862)
+
+## 配置安装包
+
+- 在package.json的build中配置打包过程中的静态图片,告诉electron-builder安装包所需静态文件的位置：
+```javascript
+"directories": {
+      "buildResources": "assets"
+    },
+```
+
+- 在package.json的build中添加win,mac,linux的配置
+
+```json
+"mac": {
+      "category": "public.app-category.productivity",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "background": "assets/appdmg.png",
+      "icon": "assets/icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    },
+    "win": {
+      "target": [
+        "msi", "nsis"
+      ],
+      "icon": "assets/icon.ico",
+      "artifactName": "${productName}-Web-Setup-${version}.${ext}",
+      "publisherName": "Viking Zhang"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
+    }
+```
+
+## 压缩优化体积
+
+- 在安装包中有一个app.asar是体积过大的主要罪魁祸首，解压后，发现其实就是`package.json`中build下files中的文件内容。
+- 优化的思路：在打安装包之前，已经通过`npm run build`将react相关的代码，也就是视图层的代码，进行了打包到`build`文件夹下，因此其实只需要将main.js中用到的包放在`dependencies`中就行了，剩余的包，移动到`devDependencies`中。因为electron-builder不会把devDependencies中的包打包进应用程序
