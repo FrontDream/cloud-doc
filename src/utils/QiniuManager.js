@@ -6,20 +6,18 @@ class QiniuManager{
     constructor(accessKey, secretKey, bucket) {
         this.mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
         this.bucket = bucket;
-
         this.config = new qiniu.conf.Config();
         // 空间对应的机房
         this.config.zone = qiniu.zone.Zone_z0;
-
         this.bucketManager = new qiniu.rs.BucketManager(this.mac, this.config);
     }
+    // 上传
     uploadFile(key,loadFilePath){
         const options = {
             scope: this.bucket + ':' + key,
         };
         const putPolicy = new qiniu.rs.PutPolicy(options);
         const uploadToken=putPolicy.uploadToken(this.mac);
-
         const formUploader = new qiniu.form_up.FormUploader(this.config);
         const putExtra = new qiniu.form_up.PutExtra();
 
@@ -27,14 +25,15 @@ class QiniuManager{
             formUploader.put(uploadToken, key, loadFilePath, putExtra, this._handleCallBack(resolve,reject))
         })
     }
+    // 获取域名
     getBucketDomain(){
         const reqUrl = `http://api.qiniu.com/v6/domain/list?tbl=${this.bucket}`
         const digest = qiniu.util.generateAccessToken(this.mac, reqUrl)
-        console.log('trigger')
         return new Promise((resolve, reject)=>{
             qiniu.rpc.postWithoutForm(reqUrl, digest, this._handleCallBack(resolve, reject))
         })
     }
+    // 获取下载链接
     generateDownLink(key){
         // 避免重复发请求获取domain
         const domainPromise = this.publicBucketDomain? Promise.resolve([this.publicBucketDomain]) : this.getBucketDomain()
@@ -49,6 +48,7 @@ class QiniuManager{
             }
         })
     }
+    // 删除文件
     deleteFile(key){
         return new Promise((resolve, reject)=>{
             this.bucketManager.delete(this.bucket, key, this._handleCallBack(resolve,reject));
