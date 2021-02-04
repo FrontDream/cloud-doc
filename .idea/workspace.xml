@@ -4,7 +4,9 @@
     <list default="true" id="4753ba69-12b8-41da-bf79-411546cbf07a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useContextMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useContextMenu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,55 +70,7 @@
       <workItem from="1612007903098" duration="3133000" />
       <workItem from="1612012836098" duration="1131000" />
       <workItem from="1612014475739" duration="69203000" />
-    </task>
-    <task id="LOCAL-00003" summary="feat:完成FileSearch组件">
-      <created>1611103736781</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1611103736781</updated>
-    </task>
-    <task id="LOCAL-00004" summary="feat:添加类型检查和默认属性">
-      <created>1611104159503</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1611104159503</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat:完成FileList的基本展示">
-      <created>1611112457825</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1611112457826</updated>
-    </task>
-    <task id="LOCAL-00006" summary="feat:重构鼠标事件">
-      <created>1611113692266</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1611113692266</updated>
-    </task>
-    <task id="LOCAL-00007" summary="feat:新建按钮组件">
-      <created>1611122836141</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1611122836141</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat:添加按钮组件到主页面中">
-      <created>1611122859391</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1611122859391</updated>
-    </task>
-    <task id="LOCAL-00009" summary="feat:安装node-scss">
-      <created>1611131211373</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1611131211373</updated>
+      <workItem from="1612356909269" duration="13849000" />
     </task>
     <task id="LOCAL-00010" summary="feat:完成右侧tab栏">
       <created>1611131242631</created>
@@ -412,7 +366,56 @@
       <option name="project" value="LOCAL" />
       <updated>1612351334148</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="fix：修改版本和accesskey">
+      <created>1612356952134</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1612356952134</updated>
+    </task>
+    <task id="LOCAL-00053" summary="comment: 搜索组件添加注释">
+      <created>1612358141701</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1612358141701</updated>
+    </task>
+    <task id="LOCAL-00054" summary="comment: 文件列表组件添加注释">
+      <created>1612400083726</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1612400083726</updated>
+    </task>
+    <task id="LOCAL-00055" summary="comment: fileHelper添加注释">
+      <created>1612401556795</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1612401556795</updated>
+    </task>
+    <task id="LOCAL-00056" summary="comment: tabList添加注释">
+      <created>1612407167990</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1612407167990</updated>
+    </task>
+    <task id="LOCAL-00057" summary="comment: App.js添加注释">
+      <created>1612407715289</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1612407715290</updated>
+    </task>
+    <task id="LOCAL-00058" summary="comment: 七牛云类添加注释">
+      <created>1612409499699</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1612409499699</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -437,13 +440,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 抽离快捷键到hooks中" />
-    <MESSAGE value="feat: 抽离新建进程类" />
-    <MESSAGE value="feat: 抽离七牛云的相关操作到类" />
-    <MESSAGE value="feat: 添加获取bucketDomain方法" />
-    <MESSAGE value="feat: 添加获取下载链接的方法" />
-    <MESSAGE value="feat: 完成通过流下载七牛云文件" />
-    <MESSAGE value="feat:添加菜单根据设置的信息同步" />
     <MESSAGE value="feat:保存时同步到远程" />
     <MESSAGE value="feat:添加同步的时间戳" />
     <MESSAGE value="feat:完成同步文件到本地" />
@@ -462,7 +458,14 @@
     <MESSAGE value="feat:添加release" />
     <MESSAGE value="feat:添加版本自动更新代码" />
     <MESSAGE value="feat:修改access_token" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat:修改access_token" />
+    <MESSAGE value="fix：修改版本和accesskey" />
+    <MESSAGE value="comment: 搜索组件添加注释" />
+    <MESSAGE value="comment: 文件列表组件添加注释" />
+    <MESSAGE value="comment: fileHelper添加注释" />
+    <MESSAGE value="comment: tabList添加注释" />
+    <MESSAGE value="comment: App.js添加注释" />
+    <MESSAGE value="comment: 七牛云类添加注释" />
+    <option name="LAST_COMMIT_MESSAGE" value="comment: 七牛云类添加注释" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,7 +1,7 @@
-import React, { useState,useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import SimpleMDE from "react-simplemde-editor";
 import { v4 as uuidv4 } from 'uuid';
-import { faPlus, faFileImport, faSave} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faFileImport } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
 import { FileSearch, FileList, BottomBtn , TabList, Loader } from './components';
@@ -157,6 +157,7 @@ function App() {
         }
         setFiles({...files,[newId]:newFile})
     }
+    // 保存当前的文件、并告诉main.js去上传文件
     const saveCurrentFile = ()=>{
         const {path, body, id, title} = activeFile
         fileHelper.writeFile(path,body).then(()=>{
@@ -245,9 +246,7 @@ function App() {
     })
   return (
     <div className="App container-fluid px-0">
-        { isLoading &&
-            <Loader />
-        }
+        { isLoading &&  <Loader /> }
       <div className="row no-gutters">
         <div className="col-3 left-panel">
             <FileSearch

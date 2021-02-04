@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const { remote } = window.require('electron')
-
 const { Menu, MenuItem } = remote
 
 const useContextMenu = (items, selector, deps)=>{

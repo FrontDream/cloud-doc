@@ -1,18 +1,13 @@
-const { app ,BrowserWindow, Menu, ipcMain, dialog } = require('electron')
+const { app, Menu, ipcMain, dialog } = require('electron')
 const { autoUpdater} = require('electron-updater')
 const path = require('path')
 const isDev = require('electron-is-dev')
 const Store = require('electron-store')
-const settingsStore = new Store({name: 'Settings'})
 const menuTemplate = require('./src/menuTemplate')
 const QiniuManager = require('./src/utils/QiniuManager')
-
 const AppWindow = require('./src/AppWindow')
-
-const fileStore = new Store({
-    name: 'cloudDoc'
-})
-
+const settingsStore = new Store({name: 'Settings'})
+const fileStore = new Store({ name: 'cloudDoc' })
 
 let mainWindow, settingWindow;
 
@@ -24,11 +19,15 @@ const createManager = ()=>{
 }
 
 app.on('ready',()=>{
+    // 自动更新
     autoUpdater.autoDownload = false
+    // 检查是否有可更新的可用
     autoUpdater.checkForUpdatesAndNotify()
+    // 检测错误
     autoUpdater.on('error',(error)=>{
         dialog.showErrorBox('Error',error===null?"un-known":error)
     })
+    // 当有可更新的可用
     autoUpdater.on('update-available',()=>{
         dialog.showMessageBox({
             type: 'info',
@@ -41,6 +40,7 @@ app.on('ready',()=>{
             }
         })
     })
+    // 无新的版本可用
     autoUpdater.on('update-not-available',()=>{
         dialog.showMessageBox({
             type: 'info',
@@ -59,6 +59,7 @@ app.on('ready',()=>{
     })
     let menu = Menu.buildFromTemplate(menuTemplate)
     Menu.setApplicationMenu(menu)
+    // 打开设置窗口
     ipcMain.on('open-settings-window',()=>{
         const settingConfig = {
             width: 500,
@@ -67,11 +68,13 @@ app.on('ready',()=>{
         }
         const settingLocation = `file://${path.join(__dirname, './settings/settings.html')}`
         settingWindow = new AppWindow(settingConfig, settingLocation)
+        // 设置中心弹框不需要菜单
         settingWindow.removeMenu()
         settingWindow.on('closed', () => {
             settingWindow = null
         })
     })
+    // 按下ctrl+s，app.js监听到后，告诉main.js上传文件到七牛云，上传成功后，告诉app.js更新文件列表
     ipcMain.on('upload-file',(event,data)=>{
         const qiniu = createManager();
         qiniu.uploadFile(data.key, data.path).then(res=>{
@@ -80,12 +83,15 @@ app.on('ready',()=>{
         }).catch(err=>{
             dialog.showErrorBox('同步失败', '请检查七牛云参数是否正确')
         })
-
     })
+    // 全部同步至云端
     ipcMain.on('upload-all-to-qiniu',()=>{
+        // 通知app.js渲染loading
         mainWindow.webContents.send('loading-status', true)
         const manager = createManager();
+        // 从本地读取文件
         const files = fileStore.get('files')
+        // 生成上传的promise
         const filesPromiseArr = Object.keys(files).map(key=>{
             const file = files[key]
             return manager.uploadFile(`${file.title}.md`, file.path)
@@ -108,10 +114,12 @@ app.on('ready',()=>{
                 mainWindow.webContents.send('loading-status', false)
         })
     })
+    // 点击某一行，告诉main进程去下载，下载成功后通知app.js去重新读取文件，重新渲染
     ipcMain.on('down-file',(event, data)=>{
         const { id, key, path } =data
         const manager = createManager();
         const files = fileStore.get('files')
+        // 先比对，看看更新时间，如果远端的更新，则下载
         manager.getStat(key).then(res=>{
             const serverUpdate =Math.round(res.putTime / 10000);
             const localUpdate = files[id].updatedAt
@@ -122,13 +130,13 @@ app.on('ready',()=>{
             }else{
                 mainWindow.webContents.send('file-downloaded',{ status: 'no-new-file', id })
             }
-            // console.log('data=========>', data)
         },(err)=>{
             if (err.statusCode === 612) {
                 mainWindow.webContents.send('file-downloaded', {status: 'no-file', id})
             }
         })
     })
+    // 设置中心弹框点击确定后，通知main进程去检查accessKey、secretKey、bucketName是否都有值，当都有值时，自动同步、全部同步至云端、从云端下载至本地等菜单才可用，否则不可用
     ipcMain.on('config-is-saved',()=>{
         let qiniuMenu = process.platform==='darwin'? menu.items[3]: menu.items[2]
         const switchEnable = (toggle)=>{
