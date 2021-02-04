@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useCallback, useEffect } from "react";
 import SimpleMDE from "react-simplemde-editor";
+import { v4 as uuidv4 } from 'uuid';
 import { faPlus, faFileImport, faSave} from '@fortawesome/free-solid-svg-icons';
-import { FileSearch, FileList, BottomBtn , TabList, Loader } from './components'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "easymde/dist/easymde.min.css";
-import { v4 as uuidv4 } from 'uuid';
+import { FileSearch, FileList, BottomBtn , TabList, Loader } from './components';
 import { flattenArr, objToArr, timestampToString } from './utils/helper';
 import fileHelper from './utils/fileHelper';
-import { useIpcRenderer } from './hooks'
+import { useIpcRenderer } from './hooks';
 import './App.css';
 
+// 分别表示路径拼接，获得路径中的最后一段,路径当中最后一段文件的扩展名,获得路径当中最后一段文件或文件夹所在的路径。
 const { join, basename, extname, dirname } = window.require('path')
 // remote 可以用于取mainProcess中的相关方法
 const { remote, ipcRenderer }= window.require('electron')
 const Store = window.require('electron-store');
-
-// const remote = electron.remote
 const settingsStore = new Store({name: 'Settings'})
-
 const qiniuConfigArr = ['accessKey', 'secretKey', 'bucketName', 'enableAutoSync']
-
 const getAuthConfig = () => qiniuConfigArr.every(item=>!!settingsStore.get(item))
-
-const fileStore = new Store({
-    name: 'cloudDoc'
-})
+const fileStore = new Store({name: 'cloudDoc'})
 
 const saveFilesToStore = (files)=>{
     const fileObjectStore = objToArr(files).reduce((result,file)=>{
@@ -43,40 +37,55 @@ const saveFilesToStore = (files)=>{
 }
 
 function App() {
+    // 文件列表
     const [files, setFiles] = useState(fileStore.get('files') || {})
+    // 当前打开的正在编辑的markdown文件的ID
     const [activeFileID, setActiveFileID] = useState('')
+    // 当前打开的文件
     const [openedFileIDs, setOpenedFileIDs] = useState([])
+    // 打开修改后未保存的文件
     const [unsavedFileIDs, setUnsavedFileIDs] = useState([])
+    // 搜索后的文件
     const [searchedFiles, setSearchedFiles] = useState([])
     const [ isLoading, setLoading ] = useState(false)
-
     const openedFiles = openedFileIDs.map(id=>files[id])
     const activeFile = files[activeFileID]
     const filesArr = objToArr(files)
     const fileListArr = searchedFiles.length>0?searchedFiles: filesArr
+    // 用户设置的路径 || 软件的根目录
     const savedLocation =settingsStore.get('savedFileLocation') || remote.app.getPath('documents')
 
+    // 点击某一行，打开对应的文档
     const fileClick = (id)=>{
+        // 当前点击的文件
         const currentFile = files[id]
+        // 右侧打开的文件ID
         setActiveFileID(id)
+        // 是否已经加载到内存,标题，路径
         const { isLoaded, title, path } = currentFile
+        // 尚未加载到内存
         if(!isLoaded){
+            // 设置了'accessKey', 'secretKey', 'bucketName', 并开启了自动同步，则向七牛云发起请求下载文件
             if(getAuthConfig()){
                 ipcRenderer.send('down-file', { key: `${title}.md`, id, path })
             }else {
+                // 否则读取本地文件
                 fileHelper.readFile(path).then(value=>{
                     const newFile = { ...currentFile, body: value, isLoaded: true}
                     setFiles({ ...files, [id]: newFile})
                 })
             }
         }
+        // 没有打开则添加到打开列表
         if(!openedFileIDs.includes(id)){
             setOpenedFileIDs([...openedFileIDs,id])
         }
     }
+    // 点击某个tab
     const tabClick = (fileId)=>{
         setActiveFileID(fileId)
     }
+    // 关闭tab
     const tabClose = (fileId)=>{
         const tabRes = openedFileIDs.filter(id=>id!==fileId)
         setOpenedFileIDs(tabRes)
@@ -86,6 +95,7 @@ function App() {
         }
         setActiveFileID('')
     }
+    // Markdown文件修改
     const fileChange = (id, value)=>{
         if(value!==files[id].body){
             const newFile = {...files[id], body: value}
@@ -95,11 +105,14 @@ function App() {
             }
         }
     }
+    //删除文件
     const deleteFile = (id)=>{
+        // 刚新建，就点击esc取消键
         if(files[id].isNew){
             const { [id]: value, ...afterDelete }= files
             setFiles(afterDelete)
         }else {
+            // 根据路径删除本地文件
             fileHelper.deleteFile(files[id].path).then(()=>{
                 const { [id]: value, ...afterDelete }= files
                 setFiles(afterDelete)
@@ -108,6 +121,7 @@ function App() {
             })
         }
     }
+    // 更新文件标题
     const updateFileName = (id,title, isNew)=>{
         const newPath =isNew? join(savedLocation,`${title}.md`): join(dirname(files[id].path), `${title}.md`)
         const modifyFile = {...files[id], title,isNew:false, path: newPath}
@@ -126,11 +140,13 @@ function App() {
             })
         }
     }
+    // 搜索
     const fileSearch = (keyword)=>{
         const newFiles = filesArr.filter(file=>file.title.includes(keyword))
         setSearchedFiles(newFiles)
     }
-    const createNewFiles = ()=>{
+    // 新建
+    const createNewFiles =()=>{
         const newId = uuidv4()
         const newFile = {
             id: newId,
@@ -150,6 +166,7 @@ function App() {
             }
         })
     }
+    // 导入
     const importFiles = () =>{
         remote.dialog.showOpenDialog({
             title: '请选择 MarkDown 文件',
@@ -157,6 +174,7 @@ function App() {
             filters: [{ name: 'MarkDown', extensions: ['md'] }]
         }).then(result=>{
             if(Array.isArray(result.filePaths)){
+                // 根据路径过滤出已经存在的文件
                 const filterPath = result.filePaths.filter(path=>{
                     const alreadyExist = Object.values(files).find(item=>item.path === path)
                     return !alreadyExist
@@ -188,7 +206,6 @@ function App() {
         saveFilesToStore(updateFile)
     }
     const fileServerUpdate = (event, message)=>{
-        // const { id, status } = data
         const currentFile = files[message.id]
         const { id ,path } = currentFile
         fileHelper.readFile(path).then(value=>{
@@ -278,7 +295,7 @@ function App() {
                               onTabClick={tabClick}
                               onCloseTab={tabClose}
                               activeId={activeFileID}
-                              unsaveIds={unsavedFileIDs}
+                             unSaveIds={unsavedFileIDs}
                           />
 
                           <SimpleMDE
