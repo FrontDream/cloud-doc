@@ -1,12 +1,38 @@
-## 启动
+## 前言
+
+采用了Electron+React+七牛云搭建的在线Markdown云文档。
+
+> git clone git@github.com:FrontDream/cloud-doc.git
+
+> cd cloud-doc
+
+> npm install (切记在可以科学上网的情况下安装，国内即使用淘宝镜像，虽然能运行起来，打包也会失败)
+
+> npm run dev (运行)
+
+> npm run dist (打包)
+
+> npm run release (发布)
+
+**注意**
+
+- 运行起来后，需要在菜单栏中打开设置中心，配置`access_key`，`secret_key`, `bucket`，才能同步到你自己的七牛云
+- 当需要`release`时，需要先确定`package.json`中的`publish`平台，并在自己的`package.json`中设置发布平台的`GH_TOKEN`
+
+以下是从0到1的搭建过程，当然，其中省略了中间的业务
+
+## 搭建electron+React开发环境
 
 - 拉取react脚手架代码：`npx create-react-app my-app`
 - 安装electron: `cnpm install electron --save-dev`
-- 项目根目录下新建`main.js`，并且在package.json中增加"main"入口：
-  ```json
+- 项目根目录下新建`main.js`，并且在`package.json`中增加"main"入口：
+
+```javascript
     "main": "main.js",
 ```
+
 - 安装判断是否是本地开发的小工具：`cnpm install electron-is-dev`
+
 ```javascript
 const { app ,BrowserWindow } = require('electron')
 const isDev = require('electron-is-dev')
@@ -26,7 +52,7 @@ app.on('ready',()=>{
 })
 ```
 - 安装同时运行两个命令的包：`npm install concurrently --save`
-- 修改package.json为如下，但是因为这是同时运行的，但是正常来说是前一个命令运行起来，再运行后一个命令
+- 修改`package.json`为如下，但是因为这是同时运行的，但是正常来说是前一个命令运行起来，再运行后一个命令
 ```json
 "scripts": {
     "start": "react-scripts start",
@@ -37,7 +63,7 @@ app.on('ready',()=>{
     "dev": "concurrently \"npm start\" \"npm run ele\""
   }
 ```
-- 因此需要再安装一个小工具：`cnpm install wait-on --save-dev`。并修改package.json如下：
+- 因此需要再安装一个小工具：`cnpm install wait-on --save-dev`。并修改`package.json`如下：
 ```json
 "scripts": {
     "start": "react-scripts start",
@@ -48,7 +74,7 @@ app.on('ready',()=>{
     "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
 ```
-- 但是这样同时还会打开浏览器，为了不打开浏览器，可以设置BROWSER为none，但是有跨平台的问题，因此可以再安装一个跨平台的工具，用于设置环境变量：`cnpm install cross-env --save-dev`,并修改package.json修改为如下：
+- 但是这样同时还会打开浏览器，为了不打开浏览器，可以设置BROWSER为none，但是有跨平台的问题，因此可以再安装一个跨平台的工具，用于设置环境变量：`cnpm install cross-env --save-dev`,并修改`package.json`修改为如下：
 ```json
  "scripts": {
     "start": "react-scripts start",
@@ -64,7 +90,7 @@ app.on('ready',()=>{
 - 安装`electron-builder`: npm install electron-builder --save-dev
 - 项目根目录运行`npm run build`
 - 修改非开发环境下electron运行的本地地址：`const urlLocation = isDev?'http://localhost:3000': `file://${path.join(__dirname, './build/index.html')}` `
-- 在`package.json`中添加基本配置，package.json第一层添加如下代码：
+- 在`package.json`中添加基本配置，`package.json`第一层添加如下代码：
 ```json
 "author": {
     "name": "qiandingwei",
@@ -143,9 +169,9 @@ app.on('ready',()=>{
 
 ## 压缩优化体积
 
-- 在安装包中有一个app.asar是体积过大的主要罪魁祸首，解压后，发现其实就是`package.json`中build下files中的文件内容。
-- 优化视图层(react)。思路：在打安装包之前，已经通过`npm run build`将react相关的代码，也就是视图层的代码，进行了打包到`build`文件夹下，因此其实只需要将main.js中用到的包放在`dependencies`中就行了，剩余的包，移动到`devDependencies`中。因为electron-builder不会把devDependencies中的包打包进应用程序
-- 优化electron层。思路：通过新建webpack.config.js将main.js进行打包，并配置，将main.js打包进入build文件夹
+- 在安装包中有一个`app.asar`是体积过大的主要罪魁祸首，解压后，发现其实就是`package.json`中`build`下`files`中的文件内容。
+- 优化视图层(react)。思路：在打安装包之前，已经通过`npm run build`将react相关的代码，也就是视图层的代码，进行了打包到`build`文件夹下，因此其实只需要将main.js中用到的包放在`dependencies`中就行了，剩余的包，移动到`devDependencies`中。因为`electron-builder`不会把`devDependencies`中的包打包进应用程序
+- 优化`electron`层。思路：通过新建`webpack.config.js`将`main.js`进行打包，并配置，将`main.js`打包进入`build`文件夹
 
 ## 如何release
 
