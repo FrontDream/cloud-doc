@@ -1,24 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEdit, faTimes, faTrash} from '@fortawesome/free-solid-svg-icons'
-
+import React from "react";
 import PropTypes from 'prop-types'
-import { useKeyPress } from '../../hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import cls from 'classnames'
 import './index.scss'
 
-const TabList = ({ files, activeId,unsaveIds,onTabClick, onCloseTab}) =>{
+const TabList = ({ files, activeId,unSaveIds,onTabClick, onCloseTab }) =>{
     return (
         <ul
             className="nav nav-pills tabList-x"
         >
             {
                 files.map(file=>{
-                    const withUnsasvedMark = unsaveIds.includes(file.id)
+                    const withUnSavedMark = unSaveIds.includes(file.id)
                     const fClassNames = cls({
                         'nav-link': true,
                         'active': file.id ===activeId,
-                        'withUnsave': withUnsasvedMark
+                        // 存在修改未保存的文件则展示红色，当悬浮时，红色消失，变成x
+                        'withUnsave': withUnSavedMark
                     })
                     return (
                         <li
@@ -43,7 +42,7 @@ const TabList = ({ files, activeId,unsaveIds,onTabClick, onCloseTab}) =>{
                                     />
                                 </span>
                                 {
-                                    withUnsasvedMark && <span className="rounded-circle ml-2 unsaved-icon"></span>
+                                    withUnSavedMark && <span className="rounded-circle ml-2 unsaved-icon"></span>
                                 }
                             </a>
                         </li>
@@ -57,13 +56,13 @@ const TabList = ({ files, activeId,unsaveIds,onTabClick, onCloseTab}) =>{
 TabList.propTypes = {
     files: PropTypes.array,
     activeId: PropTypes.string,
-    unsaveIds: PropTypes.array,
+    unSaveIds: PropTypes.array,
     onTabClick: PropTypes.func,
     onCloseTab: PropTypes.func
 }
 
 TabList.defaultProps = {
-    unsaveIds: []
+    unSaveIds: []
 }
 
 export default TabList
